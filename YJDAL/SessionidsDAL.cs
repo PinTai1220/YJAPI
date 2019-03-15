@@ -35,7 +35,7 @@ namespace YJDAL
             using (DataContext db=new DataContext())
             {
                 db.Database.CreateIfNotExists();
-                return db.Sessionids.ToList();
+                return db.Sessionids.Include("UserInfo").ToList();
             }
         }
 
@@ -44,7 +44,7 @@ namespace YJDAL
             using (DataContext db=new DataContext())
             {
                 db.Database.CreateIfNotExists();
-                return db.Sessionids.Where(c => c.sessionid_Id == id).FirstOrDefault();
+                return db.Sessionids.Include("UserInfo").Where(c => c.sessionid_Id == id).FirstOrDefault();
             }
         }
 

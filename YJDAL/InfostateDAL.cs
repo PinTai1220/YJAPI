@@ -37,7 +37,7 @@ namespace YJDAL
             using (db)
             {
                 db.Database.CreateIfNotExists();
-                return db.Infostates.ToList();
+                return db.Infostates.Include("HomeInfo").ToList();
             }
         }
 
@@ -46,7 +46,7 @@ namespace YJDAL
             using (db)
             {
                 db.Database.CreateIfNotExists();
-                return db.Infostates.Where(c => c.infostate_Id == id).FirstOrDefault();
+                return db.Infostates.Include("HomeInfo").Where(c => c.infostate_Id == id).FirstOrDefault();
             }
         }
 

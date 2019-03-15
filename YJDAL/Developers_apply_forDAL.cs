@@ -36,7 +36,7 @@ namespace YJDAL
             using (DataContext db = new DataContext())
             {
                 db.Database.CreateIfNotExists();
-                return db.Developers_Apply_Fors.ToList();
+                return db.Developers_Apply_Fors.Include("UserInfo").ToList();
             }
         }
 
@@ -45,7 +45,7 @@ namespace YJDAL
             using (DataContext db = new DataContext())
             {
                 db.Database.CreateIfNotExists();
-                return db.Developers_Apply_Fors.ToList().Where(c => c.developers_Id == id).FirstOrDefault();
+                return db.Developers_Apply_Fors.Include("UserInfo").ToList().Where(c => c.developers_Id == id).FirstOrDefault();
             }
         }
 
