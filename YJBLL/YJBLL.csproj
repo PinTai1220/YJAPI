@@ -41,10 +41,14 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Class1.cs" />
+    <Compile Include="DaycostBLL.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
+    <ProjectReference Include="..\YJCommon\YJCommon.csproj">
+      <Project>{d7d548c1-b921-47af-b9d0-bf16e37fd61c}</Project>
+      <Name>YJCommon</Name>
+    </ProjectReference>
     <ProjectReference Include="..\YJDAL\YJDAL.csproj">
       <Project>{ba6e2ba5-d731-4735-87d3-138945c6b652}</Project>
       <Name>YJDAL</Name>
