@@ -56,7 +56,10 @@
   <ItemGroup>
     <Compile Include="DaycostDAL.cs" />
     <Compile Include="DataContext.cs" />
+    <Compile Include="LevelcostDAL.cs" />
+    <Compile Include="MoneyrecordDAL.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="SessionidsDAL.cs" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\YJCommon\YJCommon.csproj">
