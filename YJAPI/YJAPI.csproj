@@ -167,8 +167,11 @@
     <Compile Include="Areas\HelpPage\SampleGeneration\SampleDirection.cs" />
     <Compile Include="Areas\HelpPage\SampleGeneration\TextSample.cs" />
     <Compile Include="Areas\HelpPage\XmlDocumentationProvider.cs" />
-    <Compile Include="Controllers\HomeController.cs" />
-    <Compile Include="Controllers\ValuesController.cs" />
+    <Compile Include="Controllers\DaycostController.cs" />
+    <Compile Include="Controllers\DeveloperController.cs" />
+    <Compile Include="Controllers\HomeInfoController.cs" />
+    <Compile Include="Controllers\InfosateController.cs" />
+    <Compile Include="Controllers\UsersController.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
@@ -257,6 +260,24 @@
     <None Include="packages.config" />
     <Content Include="Scripts\jquery-3.3.1.slim.min.map" />
     <Content Include="Scripts\jquery-3.3.1.min.map" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\YJBLL\YJBLL.csproj">
+      <Project>{508b960d-4adc-41bf-a71a-5c364b6a309a}</Project>
+      <Name>YJBLL</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\YJCommon\YJCommon.csproj">
+      <Project>{d7d548c1-b921-47af-b9d0-bf16e37fd61c}</Project>
+      <Name>YJCommon</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\YJDAL\YJDAL.csproj">
+      <Project>{BA6E2BA5-D731-4735-87D3-138945C6B652}</Project>
+      <Name>YJDAL</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\YJModel\YJModel.csproj">
+      <Project>{ccb815b6-85ae-41d1-8467-eb0756ae0174}</Project>
+      <Name>YJModel</Name>
+    </ProjectReference>
   </ItemGroup>
   <PropertyGroup>
     <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>
