@@ -5,15 +5,15 @@ using System.Text;
 using System.Threading.Tasks;
 
 using YJModel;
-using YJDAL;
 using YJCommon;
+using YJDAL;
 
 namespace YJBLL
 {
-    public class DaycostBLL : IDataservices<Daycost, DaycostBLL>
+    public class UsersBLL : IDataservices<Users, UsersBLL>
     {
-        IDataservices<Daycost, DaycostDAL> dal = DaycostDAL.GetInstance();
-        public override int Create(Daycost t)
+        IDataservices<Users, UsersDAL> dal = UsersDAL.GetInstance();
+        public override int Create(Users t)
         {
             return dal.Create(t);
         }
@@ -23,17 +23,17 @@ namespace YJBLL
             return dal.Delete(id);
         }
 
-        public override List<Daycost> Show()
+        public override List<Users> Show()
         {
             return dal.Show();
         }
 
-        public override Daycost ShowById(int id)
+        public override Users ShowById(int id)
         {
             return dal.ShowById(id);
         }
 
-        public override int Update(Daycost t)
+        public override int Update(Users t)
         {
             return dal.Update(t);
         }
