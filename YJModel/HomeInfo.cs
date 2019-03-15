@@ -1,5 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations;
+using System.ComponentModel.DataAnnotations.Schema;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -9,8 +11,11 @@ namespace YJModel
     //房屋信息表
     public class HomeInfo
     {
+        [Key]
         public int homeinfo_Id { get; set; }//标识列   主键
+        [ForeignKey("UserInfo")]
         public int homeinfo_Userid { get; set; }//用户id   外键
+        public Users UserInfo { get; set; }
         public string homeinfo_xq_Name { get; set; }//小区名称
         public string homeinfo_Area { get; set; }//建筑面积
         public float homeinfo_Avgprice { get; set; }//均价

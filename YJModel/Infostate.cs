@@ -1,5 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations;
+using System.ComponentModel.DataAnnotations.Schema;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -11,8 +13,11 @@ namespace YJModel
     /// </summary>
     public class Infostate
     {
+        [Key]
         public int infostate_Id { get; set; }//标识列  主键
+        [ForeignKey("HomeInfo")]
         public int infostate_Homeinfoid { get; set; }//外键 HomeInfo表Id
+        public HomeInfo HomeInfo { get; set; }
         public int infostate_Start { get; set; }//开始时间(yyyy-MM-dd hh:mm:ss)
         public int infostate_Level { get; set; }//上挂等级
         public int infostate_Continuou { get; set; }//持续时间

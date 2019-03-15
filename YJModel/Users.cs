@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -9,6 +10,7 @@ namespace YJModel
     //用户表
     public class Users
     {
+        [Key]
         public int user_Id { get; set; }//标识列  主键
         public string user_Phone { get; set; }//手机号
         public string user_Pwd { get; set; }//密码
