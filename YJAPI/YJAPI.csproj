@@ -171,6 +171,9 @@
     <Compile Include="Controllers\DeveloperController.cs" />
     <Compile Include="Controllers\HomeInfoController.cs" />
     <Compile Include="Controllers\InfosateController.cs" />
+    <Compile Include="Controllers\LevelcostController.cs" />
+    <Compile Include="Controllers\MoneyrecordController.cs" />
+    <Compile Include="Controllers\SessionidsController.cs" />
     <Compile Include="Controllers\UsersController.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
@@ -269,10 +272,6 @@
     <ProjectReference Include="..\YJCommon\YJCommon.csproj">
       <Project>{d7d548c1-b921-47af-b9d0-bf16e37fd61c}</Project>
       <Name>YJCommon</Name>
-    </ProjectReference>
-    <ProjectReference Include="..\YJDAL\YJDAL.csproj">
-      <Project>{BA6E2BA5-D731-4735-87D3-138945C6B652}</Project>
-      <Name>YJDAL</Name>
     </ProjectReference>
     <ProjectReference Include="..\YJModel\YJModel.csproj">
       <Project>{ccb815b6-85ae-41d1-8467-eb0756ae0174}</Project>
