@@ -25,7 +25,7 @@ namespace YJDAL
         {
             using (DataContext db = new DataContext()) {
                 db.Database.CreateIfNotExists();
-                db.Levelcosts.Remove(db.Levelcosts.Where(c => c.levelcost_Id == id).FirstOrDefault());
+                db.Levelcosts.Remove(db.Levelcosts.Where(c => c.LeavelCost_Id == id).FirstOrDefault());
                 return db.SaveChanges();
             }
         }
@@ -44,7 +44,7 @@ namespace YJDAL
             using (DataContext db = new DataContext())
             {
                 db.Database.CreateIfNotExists();
-                return db.Levelcosts.ToList().Where(c=>c.levelcost_Id==id).FirstOrDefault();
+                return db.Levelcosts.ToList().Where(c=>c.LeavelCost_Id == id).FirstOrDefault();
             }
         }
 
