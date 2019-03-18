@@ -11,12 +11,21 @@ namespace YJModel
     //用户session表
     public class Sessionids
     {
+        /// <summary>
+        /// 标识列
+        /// </summary>
+        /// 
         [Key]
-        public int sessionid_Id { get; set; }//主键  标识列
-
+        public int SessionId_Id { get; set; }
+        /// <summary>
+        /// 用户Id
+        /// </summary>
         [ForeignKey("UserInfo")]
-        public int sessionid_Userid { get; set; }//外键  用户Id
+        public int SessionId_UserId { get; set; }
         public Users UserInfo { get; set; }
-        public int sessionid_Sessionid { get; set; }//应用服务器分配给用户的sessionid
+        /// <summary>
+        /// 应用服务器分配给用户的sessionId
+        /// </summary>
+        public int SessionId_SessionId { get; set; }
     }
 }

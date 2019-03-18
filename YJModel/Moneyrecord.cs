@@ -13,12 +13,27 @@ namespace YJModel
     /// </summary>
     public class Moneyrecord
     {
+
+        /// <summary>
+        /// 标识列
+        /// </summary>
+        /// 
         [Key]
-        public int moneyrecord_Id { get; set; }//主键
+        public int MoneyRecord_Id { get; set; }
+        /// <summary>
+        /// 用户Id
+        /// </summary>
+        /// 
         [ForeignKey("UserInfo")]
-        public int moneyrecord_Userid { get; set; }//User表外键
+        public int MoneyRecord_UserId { get; set; }
         public Users UserInfo { get; set; }
-        public int moneyrecord_Record { get; set; }//金钱流水记录
-        public string monevrecord_Time { get; set; }//时间
+        /// <summary>
+        /// 金钱流水记录
+        /// </summary>
+        public int MoneyRecord_Record { get; set; }
+        /// <summary>
+        /// 时间
+        /// </summary>
+        public string MoneyRecord_Time { get; set; }
     }
 }
