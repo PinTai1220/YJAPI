@@ -23,7 +23,7 @@ namespace YJAPI.Controllers
         public int Delete(int id)
         {
             return bll.Delete(id);
-        }
+        }                                                                                                                                              
 
         [HttpGet]
         public List<HomeInfo> Show()

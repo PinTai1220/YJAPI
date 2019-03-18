@@ -32,5 +32,7 @@ namespace YJModel
         public int homeinfo_Infotype { get; set; }//信息类型(出售，出租，楼盘)
         public string homeinfo_Environment { get; set; }//环境(露台，多阳台，单阳台，干湿分离，套房...)
         public string homeinfo_Createtime { get; set; }//信息添加日期
+        public  string homeinfo_Type { get; set; }//房屋类型
+        public string homeinfo_HouseType { get; set; }//房型
     }
 }
