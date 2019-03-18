@@ -13,8 +13,17 @@ namespace YJModel
     public class Levelcost
     {
         [Key]
-        public int levelcost_Id { get; set; }//主键
-        public int levelcost_Level { get; set; }//等级
-        public float levelcost_Money { get; set; }//元/天
+        /// <summary>
+        /// 标识列
+        /// </summary>
+        public int LeavelCost_Id { get; set; }
+        /// <summary>
+        /// 等级
+        /// </summary>
+        public int LeavelCost_Level { get; set; }
+        /// <summary>
+        /// 元/天
+        /// </summary>
+        public double LevelCost_Money { get; set; }
     }
 }

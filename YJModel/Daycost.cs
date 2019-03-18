@@ -13,7 +13,13 @@ namespace YJModel
     public class Daycost
     {
         [Key]
-        public int daycost_Id { get; set; }//主键
-        public float daycost_Money { get; set; }//元/天
+        /// <summary>
+        /// 标识列
+        /// </summary>
+        public int DayCost_Id { get; set; }
+        /// <summary>
+        /// 多少元/天
+        /// </summary>
+        public double DayCost_Money { get; set; }
     }
 }

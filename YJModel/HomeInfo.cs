@@ -12,27 +12,87 @@ namespace YJModel
     public class HomeInfo
     {
         [Key]
-        public int homeinfo_Id { get; set; }//标识列   主键
+        /// <summary>
+        /// 标识列
+        /// </summary>
+        public int HomeInfo_Id { get; set; }
+        /// <summary>
+        /// 用户Id
+        /// </summary>
         [ForeignKey("UserInfo")]
-        public int homeinfo_Userid { get; set; }//用户id   外键
+        public int HomeInfo_UserId { get; set; }
         public Users UserInfo { get; set; }
-        public string homeinfo_xq_Name { get; set; }//小区名称
-        public string homeinfo_Area { get; set; }//建筑面积
-        public float homeinfo_Avgprice { get; set; }//均价
-        public string homeinfo_Introduce { get; set; }//介绍
-        public int homeinfo_Istao { get; set; }//单位(套)
-        public float homeinfo_Price { get; set; }//价格
-        public string homeinfo_Photopath { get; set; }//图片路径
-        public string homeinfo_Position { get; set; }//位置
-        public float homeinfo_Longitude { get; set; }//经度
-        public float homeinfo_Latitude { get; set; }//纬度
-        public string homeinfo_Contact { get; set; }//联系人
-        public string homeinfo_Phone { get; set; }//联系方式
-        public string homeinfo_Ctime { get; set; }//联系时间
-        public int homeinfo_Infotype { get; set; }//信息类型(出售，出租，楼盘)
-        public string homeinfo_Environment { get; set; }//环境(露台，多阳台，单阳台，干湿分离，套房...)
-        public string homeinfo_Createtime { get; set; }//信息添加日期
-        public  string homeinfo_Type { get; set; }//房屋类型
-        public string homeinfo_HouseType { get; set; }//房型
+        /// <summary>
+        /// 小区名称
+        /// </summary>
+        public string HomeInfo_Xq_Name { get; set; }
+        /// <summary>
+        /// 建筑面积
+        /// </summary>
+        public string HomeInfo_Area { get; set; }
+        /// <summary>
+        /// 均价
+        /// </summary>
+        public double HomeInfo_AvgPrice { get; set; }
+        /// <summary>
+        /// 介绍
+        /// </summary>
+        public string HomeInfo_IntroDuce { get; set; }
+        /// <summary>
+        /// 单位
+        /// </summary>
+        public int HomeInfo_IsTao { get; set; }
+        /// <summary>
+        /// 类型
+        /// </summary>
+        public string HomeInfo_Type { get; set; }
+        /// <summary>
+        /// 房型
+        /// </summary>
+        public string HomeInfo_HouseType { get; set; }
+        /// <summary>
+        /// 价格
+        /// </summary>
+        public double HomeInfo_Price { get; set; }
+        /// <summary>
+        /// 图片路径
+        /// </summary>
+        public string HomeInfo_PhotoPath { get; set; }
+        /// <summary>
+        /// 位置
+        /// </summary>
+        public string HomeInfo_PosiTion { get; set; }
+        /// <summary>
+        /// 经度
+        /// </summary>
+        public double HomeInfo_LongiTude { get; set; }
+        /// <summary>
+        /// 纬度
+        /// </summary>
+        public double HomeInfo_LatiTude { get; set; }
+        /// <summary>
+        /// 联系人
+        /// </summary>
+        public string HomeInfo_Contact { get; set; }
+        /// <summary>
+        /// 联系方式
+        /// </summary>
+        public string HomeInfo_Phone { get; set; }
+        /// <summary>
+        /// 练习时间
+        /// </summary>
+        public string HomeInfo_CTime { get; set; }
+        /// <summary>
+        /// 信息类型（出售，出租，楼盘）
+        /// </summary>
+        public int HomeInfo_InfoType { get; set; }
+        /// <summary>
+        /// 环境
+        /// </summary>
+        public string HomeInfo_Environment { get; set; }
+        /// <summary>
+        /// 信息添加日期
+        /// </summary>
+        public string HomeInfo_CreateTime { get; set; }
     }
 }

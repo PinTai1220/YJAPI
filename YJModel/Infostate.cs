@@ -14,14 +14,35 @@ namespace YJModel
     public class Infostate
     {
         [Key]
-        public int infostate_Id { get; set; }//标识列  主键
+        /// <summary>
+        /// 标识列
+        /// </summary>
+        public int InfoState_Id { get; set; }
+        /// <summary>
+        /// HomeInfo表Id
+        /// </summary>
         [ForeignKey("HomeInfo")]
-        public int infostate_Homeinfoid { get; set; }//外键 HomeInfo表Id
+        public int InfoState_HomeInfoId { get; set; }
         public HomeInfo HomeInfo { get; set; }
-        public int infostate_Start { get; set; }//开始时间(yyyy-MM-dd hh:mm:ss)
-        public int infostate_Level { get; set; }//上挂等级
-        public int infostate_Continuou { get; set; }//持续时间
-        public string infostate_Time { get; set; }//续费时间
-        public int infostate_State { get; set; }//状态(0过期，1正常)
+        /// <summary>
+        /// 开始时间
+        /// </summary>
+        public int InfoState_Start { get; set; }
+        /// <summary>
+        /// 上挂等级
+        /// </summary>
+        public int InfoState_Level { get; set; }
+        /// <summary>
+        /// 持续时间
+        /// </summary>
+        public int InfoState_Continuou { get; set; }
+        /// <summary>
+        /// 续费时间
+        /// </summary>
+        public string InfoState_Time { get; set; }
+        /// <summary>
+        /// 状态
+        /// </summary>
+        public int InfoState_State { get; set; }
     }
 }

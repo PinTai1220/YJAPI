@@ -14,12 +14,27 @@ namespace YJModel
     public class Developers_apply_for
     {
         [Key]
-        public int developers_Id { get; set; }//主键
+        /// <summary>
+        /// 标识列
+        /// </summary>
+        public int Developers_Id { get; set; }
+        /// <summary>
+        /// 用户Id
+        /// </summary>
         [ForeignKey("UserInfo")]
-        public int developers_Userid { get; set; }//User表外键id
+        public int Developers_UserId { get; set; }
         public Users UserInfo { get; set; }
-        public string developers_Photopath { get; set; }//图片材料路径
-        public string developers_Info { get; set; }//申请时间
-        public string developers_Time { get; set; }//添加时间
+        /// <summary>
+        /// 图片材料路径
+        /// </summary>
+        public string Developers_PhotoPath { get; set; }
+        /// <summary>
+        /// 申请信息
+        /// </summary>
+        public string Developers_Info { get; set; }
+        /// <summary>
+        /// 添加时间
+        /// </summary>
+        public string Developers_TimeG { get; set; }
     }
 }
