@@ -11,16 +11,49 @@ namespace YJModel
     public class Users
     {
         [Key]
-        public int user_Id { get; set; }//标识列  主键
-        public string user_Phone { get; set; }//手机号
-        public string user_Pwd { get; set; }//密码
-        public string user_PhotoUrl { get; set; }//用户头像路径
-        public int user_wx_Id { get; set; }//微信号Id
-        public string user_wx_Name { get; set; }//微信名
-        public string user_wx_PhotoUrl { get; set; }//微信头像
-        public int user_wx_Sex { get; set; }//微信性别
-        public string user_wx_Country { get; set; }//微信用户国家
-        public string user_Type { get; set; }//用户类型
-        public float user_Backmoey { get; set; }//退回金额
+        /// <summary>
+        /// 标识列
+        /// </summary>
+        public int User_Id { get; set; }
+        /// <summary>
+        /// 手机号
+        /// </summary>
+        public string User_Phone { get; set; }
+        /// <summary>
+        /// 密码
+        /// </summary>
+        public string User_Pwd { get; set; }
+        /// <summary>
+        /// 用户头像路径
+        /// </summary>
+        public string User_PhotoUrl { get; set; }
+        /// <summary>
+        /// 微信号Id
+        /// </summary>
+        public int User_Wx_Id { get; set; }
+        /// <summary>
+        /// 微信名
+        /// </summary>
+        public string User_Wx_Name { get; set; }
+        /// <summary>
+        /// 微信头像
+        /// </summary>
+        public string User_Wx_PhotoUrl { get; set; }
+        /// <summary>
+        /// 微信用户性别
+        /// </summary>
+        public int User_Wx_Sex { get; set; }
+        /// <summary>
+        /// 微信用户国家
+        /// </summary>
+        public string User_Wx_Country { get; set; }
+        /// <summary>
+        /// 用户类型（一般用户，房地产开发商，管理员）
+        /// </summary>
+        public string User_Wx_Type { get; set; }
+        /// <summary>
+        /// 退回金额
+        /// </summary>
+        public double User_BackMoey { get; set; }
     }
 }
