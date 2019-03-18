@@ -35,7 +35,7 @@ namespace YJDAL
             using (DataContext db=new DataContext())
             {
                 db.Database.CreateIfNotExists();
-                return db.Moneyrecords.ToList();
+                return db.Moneyrecords.Include("UserInfo").ToList();
             }
         }
 
@@ -44,7 +44,7 @@ namespace YJDAL
             using (DataContext db=new DataContext())
             {
                 db.Database.CreateIfNotExists();
-                return db.Moneyrecords.ToList().Where(c => c.moneyrecord_Id == id).FirstOrDefault();
+                return db.Moneyrecords.Include("UserInfo").ToList() .Where(c => c.moneyrecord_Id == id).FirstOrDefault();
                 
             }
         }
