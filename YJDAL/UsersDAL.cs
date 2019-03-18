@@ -26,7 +26,7 @@ namespace YJDAL
             using (DataContext db = new DataContext())
             {
                 db.Database.CreateIfNotExists();
-                db.Users.Remove(db.Users.Where(c => c.user_Id == id).FirstOrDefault());
+                db.Users.Remove(db.Users.Where(c => c.User_Id == id).FirstOrDefault());
                 return db.SaveChanges();
             }
         }
@@ -45,7 +45,7 @@ namespace YJDAL
             using (DataContext db = new DataContext())
             {
                 db.Database.CreateIfNotExists();
-                return db.Users.ToList().Where(c => c.user_Id == id).FirstOrDefault();
+                return db.Users.ToList().Where(c => c.User_Id == id).FirstOrDefault();
             }
         }
 
