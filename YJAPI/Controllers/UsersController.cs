@@ -40,5 +40,25 @@ namespace YJAPI.Controllers
         {
             return bll.Update(users);
         }
+
+        public SelectInfo ShowBySelect(string str, int pageIndex, int pageSize, string type)
+        {
+            List<Users> users = bll.Show();
+
+            SelectInfo selectInfo = new SelectInfo();
+            selectInfo.Count = users.Count;
+
+            users = users.Take((pageIndex - 1) * pageSize).Skip(pageSize).Where(c => c.User_Phone.Contains(str) || c.User_Wx_Name.Contains(str) || c.User_Wx_Sex == (str == "男" ? 1 : 0)).ToList();
+            if (string.IsNullOrEmpty(type)) users.Where(c => c.User_Wx_Type.Equals(type));
+
+            selectInfo.Users = users;
+            return selectInfo;
+        }
+    }
+
+    public class SelectInfo
+    {
+        public int Count { get; set; }
+        public List<Users> Users { get; set; }
     }
 }
