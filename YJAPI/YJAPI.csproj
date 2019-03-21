@@ -172,6 +172,7 @@
     <Compile Include="Controllers\HomeInfoController.cs" />
     <Compile Include="Controllers\InfosateController.cs" />
     <Compile Include="Controllers\LevelcostController.cs" />
+    <Compile Include="Controllers\MiniProController.cs" />
     <Compile Include="Controllers\MoneyrecordController.cs" />
     <Compile Include="Controllers\SessionidsController.cs" />
     <Compile Include="Controllers\UsersController.cs" />
