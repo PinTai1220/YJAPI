@@ -96,7 +96,7 @@ namespace YJAPI.Controllers
                     title = item.HomeInfo_Xq_Name,
                     district = item.HomeInfo_PosiTion,
                     payment_method = item.HomeInfo_Area,
-                    wages = item.HomeInfo_Price,
+                    wages = item.HomeInfo_AvgPrice,
                     category = item.HomeInfo_PhotoPath,
                     created_at = item.HomeInfo_CreateTime,
                     home_details = item.HomeInfo_IntroDuce,
