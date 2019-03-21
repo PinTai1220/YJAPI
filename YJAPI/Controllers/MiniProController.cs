@@ -61,6 +61,34 @@ namespace YJAPI.Controllers
             return info;
         }
 
+
+        [HttpGet]
+        public List<infos> HomeInfosByZuFang()
+        {
+            List<HomeInfo> homeInfos = bll.Show();
+            homeInfos = homeInfos.Where(c => c.HomeInfo_InfoType == 2).ToList();
+            List<infos> infos = new List<infos>();
+            foreach (var item in homeInfos)
+            {
+                infos info = new infos
+                {
+                    id = item.HomeInfo_Id,
+                    title = item.HomeInfo_Xq_Name,
+                    district = item.HomeInfo_PosiTion,
+                    payment_method = item.HomeInfo_Area,
+                    wages = item.HomeInfo_Price,
+                    category = item.HomeInfo_PhotoPath,
+                    created_at = item.HomeInfo_CreateTime,
+                    home_details = item.HomeInfo_IntroDuce,
+                    contact_Name = item.HomeInfo_Contact,
+                    contact_Phone = item.HomeInfo_Phone
+                };
+                infos.Add(info);
+            }
+            return infos;
+        }
+
+
     }
 
     public class infos
