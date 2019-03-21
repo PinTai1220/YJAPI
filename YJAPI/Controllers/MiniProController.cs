@@ -60,6 +60,26 @@ namespace YJAPI.Controllers
 
             return info;
         }
+        [HttpGet]
+        public List<dynamic> GetSwiper()
+        {
+            List<dynamic> strs = new List<dynamic>()
+            {
+                new
+                {
+                    image = "http://localhost:17547/Images/b2.jpg"
+                },
+                new
+                {
+                    image = "http://localhost:17547/Images/d1.jpg"
+                },
+                new
+                {
+                    image = "http://localhost:17547/Images/g1.jpg"
+                }
+            };
+            return strs;
+        }
 
     }
 
