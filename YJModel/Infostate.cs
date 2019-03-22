@@ -11,6 +11,7 @@ namespace YJModel
     /// <summary>
     /// 信息状态表
     /// </summary>
+    [Table("Infostate")]
     public class Infostate
     {
         [Key]

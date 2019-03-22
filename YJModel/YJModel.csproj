@@ -42,6 +42,7 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Attention.cs" />
     <Compile Include="Daycost.cs" />
     <Compile Include="Developers_apply_for.cs" />
     <Compile Include="HomeInfo.cs" />

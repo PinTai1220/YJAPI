@@ -9,6 +9,7 @@ using System.Threading.Tasks;
 namespace YJModel
 {
     //房屋信息表
+    [Table("HomeInfo")]
     public class HomeInfo
     {
         [Key]

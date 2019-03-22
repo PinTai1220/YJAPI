@@ -20,5 +20,6 @@ namespace YJDAL
         public DbSet<Moneyrecord> Moneyrecords { get; set; }
         public DbSet<Sessionids> Sessionids { get; set; }
         public DbSet<Users> Users { get; set; }
+        public DbSet<Attention> Attention { get; set; }
     }
 }

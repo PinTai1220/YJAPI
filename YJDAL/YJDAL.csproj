@@ -55,6 +55,7 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="AttentionDAL.cs" />
     <Compile Include="DaycostDAL.cs" />
     <Compile Include="DataContext.cs" />
     <Compile Include="Developers_apply_forDAL.cs" />
