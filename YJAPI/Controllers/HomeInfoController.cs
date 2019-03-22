@@ -8,6 +8,7 @@ using System.Web.Http;
 using YJModel;
 using YJBLL;
 using YJCommon;
+using Newtonsoft.Json;
 
 namespace YJAPI.Controllers
 {
@@ -30,6 +31,7 @@ namespace YJAPI.Controllers
         {
             return bll.Show();
         }
+
         [HttpGet]
         public HomeInfo ShowById(int id)
         {
