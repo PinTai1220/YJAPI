@@ -37,7 +37,7 @@ namespace YJDAL
             using (db)
             {
                 db.Database.CreateIfNotExists();
-                return db.Attention.Include("Attention").Where(c => c.Attention_Id == id).FirstOrDefault();
+                return db.Attention.Where(c => c.Attention_Id == id).FirstOrDefault();
             }
         }
 

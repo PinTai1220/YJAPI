@@ -107,7 +107,12 @@ namespace YJAPI.Controllers
             }
             return infos;
         }
-
+        public dynamic getGG(int pageindex,int pagesize)
+        {
+            List<HomeInfo> homeInfos = bll.Show();
+            homeInfos = homeInfos.Where(c => c.HomeInfo_InfoType == 2).ToList();
+            List<infos> infos = new List<infos>();
+        }
 
     }
 
