@@ -58,5 +58,9 @@ namespace YJDAL
                 return db.SaveChanges();
             }
         }
+        //public HomeInfo ShowBySome(int pageindex,int pagesize)
+        //{
+            
+        //}
     }
 }

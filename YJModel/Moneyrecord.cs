@@ -11,6 +11,7 @@ namespace YJModel
     /// <summary>
     /// 金额记录表
     /// </summary>
+    [Table("Moneyrecord")]
     public class Moneyrecord
     {
 

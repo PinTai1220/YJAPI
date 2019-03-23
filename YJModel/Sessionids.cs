@@ -9,6 +9,7 @@ using System.Threading.Tasks;
 namespace YJModel
 {
     //用户session表
+    [Table("Sessionids")]
     public class Sessionids
     {
         /// <summary>

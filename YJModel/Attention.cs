@@ -7,21 +7,20 @@ using System.Text;
 using System.Threading.Tasks;
 
 namespace YJModel
-{
-    /// <summary>
-    /// 付费规则表(天)
-    /// </summary>
-    [Table("Daycost")]
-    public class Daycost
+{ 
+    [Table("Attention")]
+    public class Attention
     {
         [Key]
+        public int Attention_Id { get; set; }
         /// <summary>
-        /// 标识列
+        /// 用户id
         /// </summary>
-        public int DayCost_Id { get; set; }
+        public int Attention_Uid { get; set; }
         /// <summary>
-        /// 多少元/天
+        /// 关注的信息id集合字符串（1,2,3...）
         /// </summary>
-        public double DayCost_Money { get; set; }
+        public string Attention_Infoids { get; set; }
+        
     }
 }
