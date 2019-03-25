@@ -50,7 +50,7 @@ namespace YJAPI.Controllers
             selectInfo.Count = users.Count;
 
             users = users.Take((pageIndex - 1) * pageSize).Skip(pageSize).Where(c => c.User_Phone.Contains(str) || c.User_Wx_Name.Contains(str) || c.User_Wx_Sex == (str == "男" ? 1 : 0)).ToList();
-            if (string.IsNullOrEmpty(type)) users.Where(c => c.User_Wx_Type.Equals(type));
+            if (string.IsNullOrEmpty(type)) users.Where(c => c.User_ype.Equals(type));
 
             selectInfo.Users = users;
             return selectInfo;
