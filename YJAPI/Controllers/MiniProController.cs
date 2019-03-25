@@ -5,6 +5,7 @@ using System.Linq;
 using System.Net;
 using System.Net.Http;
 using System.Web.Http;
+using YJAPI.Models;
 using YJBLL;
 using YJCommon;
 using YJModel;
@@ -14,6 +15,7 @@ namespace YJAPI.Controllers
     public class MiniProController : ApiController
     {
         IDataservices<HomeInfo, HomeInfoBLL> bll = HomeInfoBLL.GetInstance();
+        IDataservices<Users, UsersBLL> userbll = UsersBLL.GetInstance();
         [HttpGet]
         public List<infos> HomeInfos()
         {
@@ -50,7 +52,7 @@ namespace YJAPI.Controllers
                 title = homeInfo.HomeInfo_Xq_Name,
                 district = homeInfo.HomeInfo_PosiTion,
                 payment_method = homeInfo.HomeInfo_Area,
-                wages = homeInfo.HomeInfo_Price,
+                wages = homeInfo.HomeInfo_InfoType==1?homeInfo.HomeInfo_Price:homeInfo.HomeInfo_AvgPrice,
                 category = homeInfo.HomeInfo_PhotoPath,
                 created_at = homeInfo.HomeInfo_CreateTime,
                 home_details = homeInfo.HomeInfo_IntroDuce,
@@ -106,6 +108,20 @@ namespace YJAPI.Controllers
                 infos.Add(info);
             }
             return infos;
+        }
+        [HttpGet]
+        public Users Login(string phone, string password)
+        {
+            password= CommonHelper.CalcMD5(password);
+            Users user = userbll.Show().Where(c => c.User_Phone == phone && c.User_Pwd == password).FirstOrDefault();
+            return user;
+        }
+
+        public dynamic getGG(int pageindex,int pagesize)
+        {
+            List<HomeInfo> homeInfos = bll.Show();
+            homeInfos = homeInfos.Where(c => c.HomeInfo_InfoType == 2).ToList();
+            List<infos> infos = new List<infos>();
         }
 
     }
