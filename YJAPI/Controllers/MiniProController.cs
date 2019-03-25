@@ -4,6 +4,8 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Net;
 using System.Net.Http;
+using System.Security.Cryptography;
+using System.Text;
 using System.Web.Http;
 using YJAPI.Models;
 using YJBLL;
@@ -116,6 +118,29 @@ namespace YJAPI.Controllers
             Users user = userbll.Show().Where(c => c.User_Phone == phone && c.User_Pwd == password).FirstOrDefault();
             return user;
         }
+
+        [HttpPost]
+        public string ShowSessionKey(PostData postData)
+        {
+            string appid = "wx477e28346086d70d";
+            string secret = "9b25ddb961e662bd7166a0448432dffe";
+            string path = "https://api.weixin.qq.com/sns/jscode2session?appid=" + appid + "&secret=" + secret + "&js_code=" + postData.code + "&grant_type=authorization_code";
+            var result = JsonConvert.DeserializeObject<dynamic>(HttpClientHelper.Seng("get", path, null));
+            string sessionKey = result.session_key;
+            byte[] encDatas = Convert.FromBase64String(postData.enctypeData); //Encoding.UTF8.GetBytes(enctypeData);//
+            RijndaelManaged rijndaelCipher = new RijndaelManaged();
+            rijndaelCipher.Key = Convert.FromBase64String(sessionKey); // Encoding.UTF8.GetBytes(AesKey);
+            rijndaelCipher.IV = Convert.FromBase64String(postData.iv);// Encoding.UTF8.GetBytes(AesIV);
+            rijndaelCipher.Mode = CipherMode.CBC;
+            rijndaelCipher.Padding = PaddingMode.PKCS7;
+            ICryptoTransform transform = rijndaelCipher.CreateDecryptor();
+            byte[] plainText = transform.TransformFinalBlock(encDatas, 0, encDatas.Length);
+            string result1 = Encoding.Default.GetString(plainText);
+            dynamic model = Newtonsoft.Json.Linq.JToken.Parse(result1) as dynamic;
+            return model.phoneNumber;
+        }
+        
+
     }
 
     public class infos
@@ -161,5 +186,11 @@ namespace YJAPI.Controllers
         public string contact_Name { get; set; }
 
         public string contact_Phone { get; set; }
+    }
+    public class PostData
+    {
+        public string iv { get; set; }
+        public string code { get; set; }
+        public string enctypeData { get; set; }
     }
 }
