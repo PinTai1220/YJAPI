@@ -17,7 +17,7 @@ namespace YJDAL
             using (db)
             {
                 db.Database.CreateIfNotExists();
-                db.Infostates.Add(t);
+                db.Attention.Add(t);
                 return db.SaveChanges();
             }
         }
