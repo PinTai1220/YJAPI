@@ -58,9 +58,9 @@ namespace YJDAL
                 return db.SaveChanges();
             }
         }
-        //public HomeInfo ShowBySome(int pageindex,int pagesize)
-        //{
-            
-        //}
+        public List<HomeInfo> ShowBySome(int pageindex, int pagesize)
+        {
+            return DBHelper.GetList<HomeInfo>("select * from (select A.* from Infostates A left join HomeInfoes B on A.InfoState_HomeInfoId=B.HomeInfo_Id where A.InfoState_State=1 and B.HomeInfo_InfoType=3) H order by H.InfoState_Level offset " + pageindex + " rows fetch next " + pagesize + " rows only");
+        }
     }
 }
