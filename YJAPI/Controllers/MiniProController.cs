@@ -116,14 +116,6 @@ namespace YJAPI.Controllers
             Users user = userbll.Show().Where(c => c.User_Phone == phone && c.User_Pwd == password).FirstOrDefault();
             return user;
         }
-
-        public dynamic getGG(int pageindex,int pagesize)
-        {
-            List<HomeInfo> homeInfos = bll.Show();
-            homeInfos = homeInfos.Where(c => c.HomeInfo_InfoType == 2).ToList();
-            List<infos> infos = new List<infos>();
-        }
-
     }
 
     public class infos
