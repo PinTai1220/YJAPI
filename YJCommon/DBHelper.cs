@@ -107,19 +107,22 @@ namespace YJCommon
                     command.CommandText = item;
                     result+= command.ExecuteNonQuery();
                 }
+                conn.Close();
                 return result;
             }
             catch(SqlException)
             {
                 result = 0;
+                conn.Close();
                 return result;
             }
             catch (Exception)
             {
                 result = 0;
+                conn.Close();
                 return result;
             }
-            conn.Close();
+            
         }
     }
 }

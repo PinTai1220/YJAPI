@@ -6,6 +6,7 @@ using System.Threading.Tasks;
 
 using YJModel;
 using YJCommon;
+using System.Data.SqlClient;
 
 namespace YJDAL
 {
@@ -58,9 +59,18 @@ namespace YJDAL
                 return db.SaveChanges();
             }
         }
-        public List<HomeInfo> ShowBySome(int pageindex, int pagesize)
+        public dynamic ShowBySome(int pageindex, int pagesize)
         {
-            return DBHelper.GetList<HomeInfo>("select * from (select A.* from Infostates A left join HomeInfoes B on A.InfoState_HomeInfoId=B.HomeInfo_Id where A.InfoState_State=1 and B.HomeInfo_InfoType=3) H order by H.InfoState_Level offset " + pageindex + " rows fetch next " + pagesize + " rows only");
+            SqlParameter pindex = new SqlParameter("pageindex", System.Data.SqlDbType.Int);
+            pindex.Value = pageindex;
+            SqlParameter psize = new SqlParameter("pagesize", System.Data.SqlDbType.Int);
+            psize.Value = pageindex;
+            SqlParameter pcount = new SqlParameter("pagecount", System.Data.SqlDbType.Int);
+            pcount.Direction = System.Data.ParameterDirection.Output;
+            SqlParameter[] parameters = { pindex, psize, pcount };
+            var data = DBHelper.GetList_Proc<HomeInfo>("p_homeinfopage", parameters);
+            int pc = Convert.ToInt32(pcount.Value);
+            return new { pagecount = pc, data };
         }
     }
 }

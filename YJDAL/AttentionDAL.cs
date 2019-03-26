@@ -21,12 +21,10 @@ namespace YJDAL
                 return db.SaveChanges();
             }
         }
-        [Obsolete]
         public override int Delete(int id)
         {
             throw new NotImplementedException();
         }
-        [Obsolete]
         public override List<Attention> Show()
         {
             throw new NotImplementedException();
