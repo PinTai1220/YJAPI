@@ -146,7 +146,7 @@ namespace YJAPI.Controllers
         /// <param name="homeId">房屋编号</param>
         /// <returns></returns>
         /// 
-        [HttpPost]
+        [HttpGet]
         public int InsCol(int userId, int homeId)
         {
             Attention attention = new Attention()
@@ -162,16 +162,46 @@ namespace YJAPI.Controllers
         /// </summary>
         /// <param name="id"></param>
         /// <returns></returns>
+        /// 
+        [HttpGet]
         public int DelCol(int id)
         {
             return attBll.Delete(id);
         }
 
+        /// <summary>
+        /// 主页删除收藏
+        /// </summary>
+        /// <param name="homeId"></param>
+        /// <param name="userId"></param>
+        /// <returns></returns>
+        /// 
+        [HttpGet]
         public int DelCol(int homeId, int userId)
         {
             Attention attention = attBll.Show().Where(c => c.Attention_Infoids == homeId && c.Attention_Uid == userId).FirstOrDefault();
             int id = attention.Attention_Id;
             return attBll.Delete(id);
+        }
+
+        /// <summary>
+        /// 查询某用户是否已经添加了收藏
+        /// </summary>
+        /// <param name="homeId"></param>
+        /// <param name="userId"></param>
+        /// <returns></returns>
+        [HttpGet]
+        public int ExistsCol(int homeId, int userId)
+        {
+            Attention attention = attBll.Show().Where(c => c.Attention_Uid == userId && c.Attention_Infoids == homeId).FirstOrDefault();
+            if (attention is null)
+            {
+                return 0;
+            }
+            else
+            {
+                return 1;
+            }
         }
 
         /// <summary>
@@ -194,12 +224,37 @@ namespace YJAPI.Controllers
                     title = item.HomeInfo.HomeInfo_Xq_Name,
                     district = item.HomeInfo.HomeInfo_PosiTion,
                     payment_method = item.HomeInfo.HomeInfo_Area,
-                    wages = item.HomeInfo.HomeInfo_AvgPrice,
+                    wages = item.HomeInfo.HomeInfo_InfoType == 1 ? item.HomeInfo.HomeInfo_Price : item.HomeInfo.HomeInfo_AvgPrice,
                     category = item.HomeInfo.HomeInfo_PhotoPath
                 };
                 infos.Add(info);
             }
 
+            return infos;
+        }
+        [HttpGet]
+        public List<infos> ShowHomeIds(int userId)
+        {
+            List<Attention> attentions = attBll.Show().Where(c => c.Attention_Uid == userId).ToList();
+
+            List<HomeInfo> homeInfos = bll.Show();
+            homeInfos = homeInfos.Where(c => c.HomeInfo_InfoType == 2).ToList();
+            List<infos> infos = new List<infos>();
+            foreach (var item in homeInfos)
+            {
+                infos info = new infos
+                {
+                    id = item.HomeInfo_Id,
+                    title = item.HomeInfo_Xq_Name,
+                    district = item.HomeInfo_PosiTion,
+                    payment_method = item.HomeInfo_Area,
+                    wages = item.HomeInfo_Price,
+                    category = item.HomeInfo_PhotoPath,
+                    state = attentions.Select(c => c.Attention_Infoids == item.HomeInfo_Id).Count()>0? 1 : 0
+                    
+                };
+                infos.Add(info);
+            }
             return infos;
         }
     }
@@ -275,5 +330,7 @@ namespace YJAPI.Controllers
         public string contact_Name { get; set; }
 
         public string contact_Phone { get; set; }
+
+        public int state { get; set; }
     }
 }

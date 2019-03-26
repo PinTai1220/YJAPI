@@ -17,7 +17,7 @@ namespace YJDAL
             using (db)
             {
                 db.Database.CreateIfNotExists();
-                db.Infostates.Add(t);
+                db.Infostate.Add(t);
                 return db.SaveChanges();
             }
         }
@@ -27,7 +27,7 @@ namespace YJDAL
             using (db)
             {
                 db.Database.CreateIfNotExists();
-                db.Infostates.Remove(db.Infostates.Where(c => c.InfoState_Id == id).FirstOrDefault());
+                db.Infostate.Remove(db.Infostate.Where(c => c.InfoState_Id == id).FirstOrDefault());
                 return db.SaveChanges();
             }
         }
@@ -37,7 +37,7 @@ namespace YJDAL
             using (db)
             {
                 db.Database.CreateIfNotExists();
-                return db.Infostates.Include("HomeInfo").ToList();
+                return db.Infostate.Include("HomeInfo").ToList();
             }
         }
 
@@ -46,7 +46,7 @@ namespace YJDAL
             using (db)
             {
                 db.Database.CreateIfNotExists();
-                return db.Infostates.Include("HomeInfo").Where(c => c.InfoState_Id == id).FirstOrDefault();
+                return db.Infostate.Include("HomeInfo").Where(c => c.InfoState_Id == id).FirstOrDefault();
             }
         }
 

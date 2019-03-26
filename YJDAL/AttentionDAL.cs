@@ -10,11 +10,10 @@ namespace YJDAL
 {
     public class AttentionDAL: IDataservices<Attention, AttentionDAL>
     {
-        DataContext db = new DataContext();
 
         public override int Create(Attention t)
         {
-            using (db)
+            using (DataContext db = new DataContext())
             {
                 db.Database.CreateIfNotExists();
                 db.Attention.Add(t);
@@ -23,7 +22,7 @@ namespace YJDAL
         }
         public override int Delete(int id)
         {
-            using (db)
+            using (DataContext db = new DataContext())
             {
                 db.Database.CreateIfNotExists();
                 db.Attention.Remove(db.Attention.Where(c => c.Attention_Id == id).FirstOrDefault());
@@ -32,10 +31,10 @@ namespace YJDAL
         }
         public override List<Attention> Show()
         {
-            using (db)
+            using (DataContext db = new DataContext())
             {
-                db.Database.CreateIfNotExists();
-              return  db.Attention.ToList();
+              db.Database.CreateIfNotExists();
+              return  db.Attention.Include("HomeInfo").ToList();
             }
         }
 

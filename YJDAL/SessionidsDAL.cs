@@ -15,7 +15,7 @@ namespace YJDAL
             using (DataContext db=new DataContext())
             {
                 db.Database.CreateIfNotExists();
-                db.Sessionids.Add(t);
+                db.Sessionid.Add(t);
                 return db.SaveChanges();
             }
         }
@@ -25,7 +25,7 @@ namespace YJDAL
             using (DataContext db=new DataContext())
             {
                 db.Database.CreateIfNotExists();
-                db.Sessionids.Remove(db.Sessionids.Where(c=>c.SessionId_Id == id).FirstOrDefault());
+                db.Sessionid.Remove(db.Sessionid.Where(c=>c.SessionId_Id == id).FirstOrDefault());
                 return db.SaveChanges();
             }
         }
@@ -35,7 +35,7 @@ namespace YJDAL
             using (DataContext db=new DataContext())
             {
                 db.Database.CreateIfNotExists();
-                return db.Sessionids.Include("UserInfo").ToList();
+                return db.Sessionid.Include("UserInfo").ToList();
             }
         }
 
@@ -44,7 +44,7 @@ namespace YJDAL
             using (DataContext db=new DataContext())
             {
                 db.Database.CreateIfNotExists();
-                return db.Sessionids.Include("UserInfo").Where(c => c.SessionId_Id == id).FirstOrDefault();
+                return db.Sessionid.Include("UserInfo").Where(c => c.SessionId_Id == id).FirstOrDefault();
             }
         }
 
