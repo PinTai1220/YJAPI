@@ -20,17 +20,17 @@ namespace YJBLL
         
         public override int Delete(int id)
         {
-            throw new NotImplementedException();
+            return dal.Delete(id);
         }
         
         public override List<Attention> Show()
         {
-            throw new NotImplementedException();
+            return dal.Show();
         }
         
         public override Attention ShowById(int id)
         {
-            return dal.ShowById(id);
+            throw new NotImplementedException();
         }
         /// <summary>
         /// 修改
@@ -39,7 +39,7 @@ namespace YJBLL
         /// <returns></returns>
         public override int Update(Attention t)
         {
-            return dal.Update(t);
+            throw new NotImplementedException();
         }
     }
 }

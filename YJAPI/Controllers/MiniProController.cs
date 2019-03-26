@@ -4,8 +4,6 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Net;
 using System.Net.Http;
-using System.Security.Cryptography;
-using System.Text;
 using System.Web.Http;
 using YJAPI.Models;
 using YJBLL;
@@ -18,6 +16,11 @@ namespace YJAPI.Controllers
     {
         IDataservices<HomeInfo, HomeInfoBLL> bll = HomeInfoBLL.GetInstance();
         IDataservices<Users, UsersBLL> userbll = UsersBLL.GetInstance();
+        IDataservices<Attention, AttentionBLL> attBll = AttentionBLL.GetInstance();
+        /// <summary>
+        /// 显示所有的房屋信息
+        /// </summary>
+        /// <returns></returns>
         [HttpGet]
         public List<infos> HomeInfos()
         {
@@ -43,7 +46,11 @@ namespace YJAPI.Controllers
             }
             return infos;
         }
-
+        /// <summary>
+        /// 显示房屋的详情信息
+        /// </summary>
+        /// <param name="id"></param>
+        /// <returns></returns>
         [HttpGet]
         public infos HomeInfosById(int id)
         {
@@ -54,7 +61,7 @@ namespace YJAPI.Controllers
                 title = homeInfo.HomeInfo_Xq_Name,
                 district = homeInfo.HomeInfo_PosiTion,
                 payment_method = homeInfo.HomeInfo_Area,
-                wages = homeInfo.HomeInfo_InfoType==1?homeInfo.HomeInfo_Price:homeInfo.HomeInfo_AvgPrice,
+                wages = homeInfo.HomeInfo_InfoType == 1 ? homeInfo.HomeInfo_Price : homeInfo.HomeInfo_AvgPrice,
                 category = homeInfo.HomeInfo_PhotoPath,
                 created_at = homeInfo.HomeInfo_CreateTime,
                 home_details = homeInfo.HomeInfo_IntroDuce,
@@ -64,6 +71,10 @@ namespace YJAPI.Controllers
 
             return info;
         }
+        /// <summary>
+        /// 轮播图
+        /// </summary>
+        /// <returns></returns>
         [HttpGet]
         public List<dynamic> GetSwiper()
         {
@@ -84,7 +95,10 @@ namespace YJAPI.Controllers
             };
             return strs;
         }
-
+        /// <summary>
+        /// 显示所有的租房信息
+        /// </summary>
+        /// <returns></returns>
 
         [HttpGet]
         public List<infos> HomeInfosByZuFang()
@@ -111,36 +125,111 @@ namespace YJAPI.Controllers
             }
             return infos;
         }
+        /// <summary>
+        /// 登录
+        /// </summary>
+        /// <param name="phone"></param>
+        /// <param name="password"></param>
+        /// <returns></returns>
         [HttpGet]
         public Users Login(string phone, string password)
         {
-            password= CommonHelper.CalcMD5(password);
+            password = CommonHelper.CalcMD5(password);
             Users user = userbll.Show().Where(c => c.User_Phone == phone && c.User_Pwd == password).FirstOrDefault();
             return user;
         }
 
+        /// <summary>
+        /// 添加收藏
+        /// </summary>
+        /// <param name="userId">用户编号</param>
+        /// <param name="homeId">房屋编号</param>
+        /// <returns></returns>
+        /// 
         [HttpPost]
-        public string ShowSessionKey(PostData postData)
+        public int InsCol(int userId, int homeId)
         {
-            string appid = "wx477e28346086d70d";
-            string secret = "9b25ddb961e662bd7166a0448432dffe";
-            string path = "https://api.weixin.qq.com/sns/jscode2session?appid=" + appid + "&secret=" + secret + "&js_code=" + postData.code + "&grant_type=authorization_code";
-            var result = JsonConvert.DeserializeObject<dynamic>(HttpClientHelper.Seng("get", path, null));
-            string sessionKey = result.session_key;
-            byte[] encDatas = Convert.FromBase64String(postData.enctypeData); //Encoding.UTF8.GetBytes(enctypeData);//
-            RijndaelManaged rijndaelCipher = new RijndaelManaged();
-            rijndaelCipher.Key = Convert.FromBase64String(sessionKey); // Encoding.UTF8.GetBytes(AesKey);
-            rijndaelCipher.IV = Convert.FromBase64String(postData.iv);// Encoding.UTF8.GetBytes(AesIV);
-            rijndaelCipher.Mode = CipherMode.CBC;
-            rijndaelCipher.Padding = PaddingMode.PKCS7;
-            ICryptoTransform transform = rijndaelCipher.CreateDecryptor();
-            byte[] plainText = transform.TransformFinalBlock(encDatas, 0, encDatas.Length);
-            string result1 = Encoding.Default.GetString(plainText);
-            dynamic model = Newtonsoft.Json.Linq.JToken.Parse(result1) as dynamic;
-            return model.phoneNumber;
+            Attention attention = new Attention()
+            {
+                Attention_Uid = userId,
+                Attention_Infoids = homeId
+            };
+            return attBll.Create(attention);
         }
-        
 
+        /// <summary>
+        /// 移除收藏
+        /// </summary>
+        /// <param name="id"></param>
+        /// <returns></returns>
+        public int DelCol(int id)
+        {
+            return attBll.Delete(id);
+        }
+
+        public int DelCol(int homeId, int userId)
+        {
+            Attention attention = attBll.Show().Where(c => c.Attention_Infoids == homeId && c.Attention_Uid == userId).FirstOrDefault();
+            int id = attention.Attention_Id;
+            return attBll.Delete(id);
+        }
+
+        /// <summary>
+        /// 显示某用户的所有收藏
+        /// </summary>
+        /// <param name="userId"></param>
+        /// <returns></returns>
+        [HttpGet]
+        public List<collects> ShowCol(int userId)
+        {
+            List<Attention> attentions = attBll.Show().Where(c => c.Attention_Uid == userId).ToList();
+            List<collects> infos = new List<collects>();
+
+            foreach (var item in attentions)
+            {
+                collects info = new collects
+                {
+                    id = item.Attention_Id,
+                    hid = item.HomeInfo.HomeInfo_Id,
+                    title = item.HomeInfo.HomeInfo_Xq_Name,
+                    district = item.HomeInfo.HomeInfo_PosiTion,
+                    payment_method = item.HomeInfo.HomeInfo_Area,
+                    wages = item.HomeInfo.HomeInfo_AvgPrice,
+                    category = item.HomeInfo.HomeInfo_PhotoPath
+                };
+                infos.Add(info);
+            }
+
+            return infos;
+        }
+    }
+
+    public class collects
+    {
+        public int id { get; set; }
+        public int hid { get; set; }
+        /// <summary>
+        /// 名称
+        /// </summary>
+        public string title { get; set; }
+        /// <summary>
+        /// 位置
+        /// </summary>
+        public string district { get; set; }
+        /// <summary>
+        /// 面积
+        /// </summary>
+        public string payment_method { get; set; }
+
+        /// <summary>
+        /// 价格
+        /// </summary>
+        public double wages { get; set; }
+
+        /// <summary>
+        /// 房源图片
+        /// </summary>
+        public string category { get; set; }
     }
 
     public class infos
@@ -186,11 +275,5 @@ namespace YJAPI.Controllers
         public string contact_Name { get; set; }
 
         public string contact_Phone { get; set; }
-    }
-    public class PostData
-    {
-        public string iv { get; set; }
-        public string code { get; set; }
-        public string enctypeData { get; set; }
     }
 }

@@ -23,30 +23,30 @@ namespace YJDAL
         }
         public override int Delete(int id)
         {
-            throw new NotImplementedException();
+            using (db)
+            {
+                db.Database.CreateIfNotExists();
+                db.Attention.Remove(db.Attention.Where(c => c.Attention_Id == id).FirstOrDefault());
+                return db.SaveChanges();
+            }
         }
         public override List<Attention> Show()
         {
-            throw new NotImplementedException();
+            using (db)
+            {
+                db.Database.CreateIfNotExists();
+              return  db.Attention.ToList();
+            }
         }
 
         public override Attention ShowById(int id)
         {
-            using (db)
-            {
-                db.Database.CreateIfNotExists();
-                return db.Attention.Where(c => c.Attention_Id == id).FirstOrDefault();
-            }
+            throw new NotImplementedException();
         }
 
         public override int Update(Attention t)
         {
-            using (db)
-            {
-                db.Database.CreateIfNotExists();
-                db.Entry<Attention>(t).State = System.Data.Entity.EntityState.Modified;
-                return db.SaveChanges();
-            }
+            throw new NotImplementedException();
         }
     }
 }

@@ -20,7 +20,10 @@ namespace YJModel
         /// <summary>
         /// 关注的信息id集合字符串（1,2,3...）
         /// </summary>
-        public string Attention_Infoids { get; set; }
-        
+        [ForeignKey("HomeInfo")]
+        public int Attention_Infoids { get; set; }
+
+        public HomeInfo HomeInfo { get; set; }
+
     }
 }
