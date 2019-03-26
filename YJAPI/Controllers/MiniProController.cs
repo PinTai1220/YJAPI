@@ -132,10 +132,10 @@ namespace YJAPI.Controllers
         /// <param name="password"></param>
         /// <returns></returns>
         [HttpGet]
-        public Users Login(string phone, string password)
+        public Users Login(string userphone, string password)
         {
             password = CommonHelper.CalcMD5(password);
-            Users user = userbll.Show().Where(c => c.User_Phone == phone && c.User_Pwd == password).FirstOrDefault();
+            Users user = userbll.Show().Where(c => c.User_Phone == userphone && c.User_Pwd == password).FirstOrDefault();
             return user;
         }
 
