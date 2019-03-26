@@ -4,7 +4,7 @@ using System.Linq;
 using System.Net;
 using System.Net.Http;
 using System.Web.Http;
-
+using YJAPI.Models;
 using YJModel;
 using YJBLL;
 using YJCommon;
@@ -50,7 +50,7 @@ namespace YJAPI.Controllers
             selectInfo.Count = users.Count;
 
             users = users.Take((pageIndex - 1) * pageSize).Skip(pageSize).Where(c => c.User_Phone.Contains(str) || c.User_Wx_Name.Contains(str) || c.User_Wx_Sex == (str == "男" ? 1 : 0)).ToList();
-            if (string.IsNullOrEmpty(type)) users.Where(c => c.User_ype.Equals(type));
+            if (string.IsNullOrEmpty(type)) users.Where(c => c.User_Type.Equals(type));
 
             selectInfo.Users = users;
             return selectInfo;

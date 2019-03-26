@@ -52,7 +52,7 @@ namespace YJModel
         /// <summary>
         /// 用户类型（一般用户，房地产开发商，管理员）
         /// </summary>
-        public string User_ype { get; set; }
+        public string User_Type { get; set; }
         /// <summary>
         /// 退回金额
         /// </summary>

@@ -42,5 +42,11 @@ namespace YJAPI.Controllers
         {
             return bll.Update(homeInfo);
         }
+        [HttpGet]
+        public List<HomeInfo> getinfobypage(int pageindex,int pagesize)
+        {
+            HomeInfoBLL hbll = bll as HomeInfoBLL;
+            return hbll.ShowBySome(pageindex, pagesize);
+        }
     }
 }
