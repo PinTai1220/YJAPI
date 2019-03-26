@@ -28,7 +28,7 @@ namespace YJModel
         /// <summary>
         /// 开始时间
         /// </summary>
-        public int InfoState_Start { get; set; }
+        public string InfoState_Start { get; set; }
         /// <summary>
         /// 上挂等级
         /// </summary>
