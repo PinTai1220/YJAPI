@@ -49,5 +49,9 @@ namespace YJAPI.Controllers
             var data= hbll.ShowBySome(pageindex, pagesize);
             return data;
         }
+        public List<HomeInfo> GetByUid(int uid)
+        {
+            return bll.Show().Where(s => s.HomeInfo_UserId == uid).ToList();
+        }
     }
 }
