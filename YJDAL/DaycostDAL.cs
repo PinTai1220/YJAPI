@@ -15,7 +15,7 @@ namespace YJDAL
             using (DataContext db = new DataContext())
             {
                 db.Database.CreateIfNotExists();
-                db.Daycosts.Add(t);
+                db.Daycost.Add(t);
                 return db.SaveChanges();
             }
         }
@@ -25,7 +25,7 @@ namespace YJDAL
             using (DataContext db = new DataContext())
             {
                 db.Database.CreateIfNotExists();
-                db.Daycosts.Remove(db.Daycosts.Where(s => s.DayCost_Id == id).FirstOrDefault());
+                db.Daycost.Remove(db.Daycost.Where(s => s.DayCost_Id == id).FirstOrDefault());
                 return db.SaveChanges();
             }
         }
@@ -35,7 +35,7 @@ namespace YJDAL
             using (DataContext db = new DataContext())
             {
                 db.Database.CreateIfNotExists();
-                return db.Daycosts.ToList();
+                return db.Daycost.ToList();
             }
         }
 
@@ -44,7 +44,7 @@ namespace YJDAL
             using (DataContext db = new DataContext())
             {
                 db.Database.CreateIfNotExists();
-                return db.Daycosts.ToList().Where(c => c.DayCost_Id == id).FirstOrDefault();
+                return db.Daycost.ToList().Where(c => c.DayCost_Id == id).FirstOrDefault();
             }
         }
 

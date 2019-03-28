@@ -11,48 +11,48 @@ namespace YJDAL
 {
     public class InfostateDAL : IDataservices<Infostate, InfostateDAL>
     {
-        DataContext db = new DataContext();
+        
         public override int Create(Infostate t)
         {
-            using (db)
+            using (DataContext db = new DataContext())
             {
                 db.Database.CreateIfNotExists();
-                db.Infostates.Add(t);
+                db.Infostate.Add(t);
                 return db.SaveChanges();
             }
         }
 
         public override int Delete(int id)
         {
-            using (db)
+            using (DataContext db = new DataContext())
             {
                 db.Database.CreateIfNotExists();
-                db.Infostates.Remove(db.Infostates.Where(c => c.InfoState_Id == id).FirstOrDefault());
+                db.Infostate.Remove(db.Infostate.Where(c => c.InfoState_Id == id).FirstOrDefault());
                 return db.SaveChanges();
             }
         }
 
         public override List<Infostate> Show()
         {
-            using (db)
+            using (DataContext db = new DataContext())
             {
                 db.Database.CreateIfNotExists();
-                return db.Infostates.Include("HomeInfo").ToList();
+                return db.Infostate.Include("HomeInfo").ToList();
             }
         }
 
         public override Infostate ShowById(int id)
         {
-            using (db)
+            using (DataContext db = new DataContext())
             {
                 db.Database.CreateIfNotExists();
-                return db.Infostates.Include("HomeInfo").Where(c => c.InfoState_Id == id).FirstOrDefault();
+                return db.Infostate.Include("HomeInfo").Where(c => c.InfoState_Id == id).FirstOrDefault();
             }
         }
 
         public override int Update(Infostate t)
         {
-            using (db)
+            using (DataContext db = new DataContext())
             {
                 db.Database.CreateIfNotExists();
                 db.Entry<Infostate>(t).State = System.Data.Entity.EntityState.Modified;

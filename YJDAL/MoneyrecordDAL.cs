@@ -15,7 +15,7 @@ namespace YJDAL
             using (DataContext db=new DataContext())
             {
                 db.Database.CreateIfNotExists();
-                db.Moneyrecords.Add(t);
+                db.Moneyrecord.Add(t);
                 return db.SaveChanges();
             }
         }
@@ -25,7 +25,7 @@ namespace YJDAL
             using (DataContext db=new DataContext())
             {
                 db.Database.CreateIfNotExists();
-                db.Moneyrecords.Remove(db.Moneyrecords.Where(c=>c.MoneyRecord_Id == id).FirstOrDefault());
+                db.Moneyrecord.Remove(db.Moneyrecord.Where(c=>c.MoneyRecord_Id == id).FirstOrDefault());
                 return db.SaveChanges();
             }
         }
@@ -35,7 +35,7 @@ namespace YJDAL
             using (DataContext db=new DataContext())
             {
                 db.Database.CreateIfNotExists();
-                return db.Moneyrecords.Include("UserInfo").ToList();
+                return db.Moneyrecord.Include("UserInfo").ToList();
             }
         }
 
@@ -44,7 +44,7 @@ namespace YJDAL
             using (DataContext db=new DataContext())
             {
                 db.Database.CreateIfNotExists();
-                return db.Moneyrecords.Include("UserInfo").ToList() .Where(c => c.MoneyRecord_Id == id).FirstOrDefault();
+                return db.Moneyrecord.Include("UserInfo").ToList() .Where(c => c.MoneyRecord_Id == id).FirstOrDefault();
                 
             }
         }

@@ -11,6 +11,7 @@ namespace YJModel
     /// <summary>
     /// 开发商申请记录
     /// </summary>
+    [Table("Developers_apply_for")]
     public class Developers_apply_for
     {
         [Key]
@@ -33,7 +34,11 @@ namespace YJModel
         /// </summary>
         public string Developers_Info { get; set; }
         /// <summary>
-        /// 添加时间
+        /// 状态(待处理0,同意1,驳回2)
+        /// </summary>
+        public int developers_state { get; set; }
+        /// <summary>
+        /// 申请时间
         /// </summary>
         public string Developers_TimeG { get; set; }
     }

@@ -12,13 +12,14 @@ namespace YJDAL
     {
         public DataContext() : base("name=conn")
         { }
-        public DbSet<Daycost> Daycosts { get; set; }
-        public DbSet<Developers_apply_for> Developers_Apply_Fors { get; set; }
-        public DbSet<HomeInfo> HomeInfos { get; set; }
-        public DbSet<Infostate> Infostates { get; set; }
-        public DbSet<Levelcost> Levelcosts { get; set; }
-        public DbSet<Moneyrecord> Moneyrecords { get; set; }
-        public DbSet<Sessionids> Sessionids { get; set; }
-        public DbSet<Users> Users { get; set; }
+        public DbSet<Daycost> Daycost { get; set; }
+        public DbSet<Developers_apply_for> Developers_Apply_For { get; set; }
+        public DbSet<HomeInfo> HomeInfo { get; set; }
+        public DbSet<Infostate> Infostate { get; set; }
+        public DbSet<Levelcost> Levelcost { get; set; }
+        public DbSet<Moneyrecord> Moneyrecord { get; set; }
+        public DbSet<Sessionids> Sessionid { get; set; }
+        public DbSet<Users> User { get; set; }
+        public DbSet<Attention> Attention { get; set; }
     }
 }

@@ -40,5 +40,17 @@ namespace YJAPI.Controllers
         {
             return bll.Update(infostate);
         }
+        public List<Infostate> GetByUid(int uid)
+        {
+            var result = bll.Show().Where(a => a.HomeInfo.HomeInfo_UserId == uid).ToList();
+            return result;
+        }
+        public dynamic GetBystate(int pageindex,int pagesize,int state)
+        {
+            var result = bll.Show().Where(a =>a.HomeInfo.HomeInfo_InfoType==state).ToList();
+            var pagecount = (int)Math.Ceiling(result.Count * 1.0 / pagesize);
+            result = result.Skip((pageindex - 1) * pagesize).Take(pagesize).ToList();
+            return new { pagecount,data=result};
+        }
     }
 }

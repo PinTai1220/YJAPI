@@ -11,6 +11,7 @@ namespace YJModel
     /// <summary>
     /// 信息状态表
     /// </summary>
+    [Table("Infostate")]
     public class Infostate
     {
         [Key]
@@ -27,7 +28,7 @@ namespace YJModel
         /// <summary>
         /// 开始时间
         /// </summary>
-        public int InfoState_Start { get; set; }
+        public string InfoState_Start { get; set; }
         /// <summary>
         /// 上挂等级
         /// </summary>

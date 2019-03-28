@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
+using System.ComponentModel.DataAnnotations.Schema;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -8,6 +9,7 @@ using System.Threading.Tasks;
 namespace YJModel
 {
     //用户表
+    [Table("Users")]
     public class Users
     {
         [Key]
@@ -50,7 +52,7 @@ namespace YJModel
         /// <summary>
         /// 用户类型（一般用户，房地产开发商，管理员）
         /// </summary>
-        public string User_Wx_Type { get; set; }
+        public string User_Type { get; set; }
         /// <summary>
         /// 退回金额
         /// </summary>

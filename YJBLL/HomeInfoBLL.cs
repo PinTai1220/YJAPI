@@ -37,5 +37,10 @@ namespace YJBLL
         {
             return dal.Update(t);
         }
+        public dynamic ShowBySome(int pageindex, int pagesize)
+        {
+            HomeInfoDAL hdal = dal as HomeInfoDAL;
+            return hdal.ShowBySome(pageindex, pagesize);
+        }
     }
 }
