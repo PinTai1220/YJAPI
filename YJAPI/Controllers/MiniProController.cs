@@ -68,7 +68,6 @@ namespace YJAPI.Controllers
                 contact_Name = homeInfo.HomeInfo_Contact,
                 contact_Phone = homeInfo.HomeInfo_Phone
             };
-
             return info;
         }
         /// <summary>
@@ -257,7 +256,6 @@ namespace YJAPI.Controllers
             }
             return infos;
         }
-    }
 
     public class collects
     {
