@@ -10,10 +10,29 @@ using YJBLL;
 using YJCommon;
 using Newtonsoft.Json;
 
+using StackExchange.Redis;
+
 namespace YJAPI.Controllers
 {
     public class HomeInfoController : ApiController
     {
+        private static readonly object Locker = new object();
+        private static ConnectionMultiplexer redisConn;
+        public static ConnectionMultiplexer GetRedisConn()
+        {
+            if (redisConn == null)
+            {
+                lock (Locker)
+                {
+                    if (redisConn == null || !redisConn.IsConnected)
+                    {
+                        redisConn = ConnectionMultiplexer.Connect("127.0.0.1:6379");
+                    }
+                }
+            }
+            return redisConn;
+        }
+
         IDataservices<HomeInfo, HomeInfoBLL> bll = HomeInfoBLL.GetInstance();
         [HttpPost]
         public int Create(HomeInfo homeInfo)
@@ -24,12 +43,22 @@ namespace YJAPI.Controllers
         public int Delete(int id)
         {
             return bll.Delete(id);
-        }                                                                                                                                              
+        }
 
         [HttpGet]
         public List<HomeInfo> Show()
         {
-            return bll.Show();
+            redisConn = GetRedisConn();
+            var db = redisConn.GetDatabase(0);
+            List<HomeInfo> homes = bll.Show();
+            string strResult = JsonConvert.SerializeObject(homes);
+            if (!db.KeyExists("HomeInfo"))
+            {
+                db.StringSet("HomeInfo", strResult);
+                db.KeyExpire("HomeInfo", DateTime.Now.AddMinutes(2));
+            }
+            homes = JsonConvert.DeserializeObject<List<HomeInfo>>(strResult);
+            return homes;
         }
 
         [HttpGet]
@@ -43,10 +72,10 @@ namespace YJAPI.Controllers
             return bll.Update(homeInfo);
         }
         [HttpGet]
-        public dynamic getinfobypage(int pageindex,int pagesize)
+        public dynamic getinfobypage(int pageindex, int pagesize)
         {
             HomeInfoBLL hbll = bll as HomeInfoBLL;
-            var data= hbll.ShowBySome(pageindex, pagesize);
+            var data = hbll.ShowBySome(pageindex, pagesize);
             return data;
         }
         public List<HomeInfo> GetByUid(int uid)
