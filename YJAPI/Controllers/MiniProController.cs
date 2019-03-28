@@ -50,14 +50,13 @@ namespace YJAPI.Controllers
                 title = homeInfo.HomeInfo_Xq_Name,
                 district = homeInfo.HomeInfo_PosiTion,
                 payment_method = homeInfo.HomeInfo_Area,
-                wages = homeInfo.HomeInfo_Price,
+                wages = homeInfo.HomeInfo_InfoType==1?homeInfo.HomeInfo_Price:homeInfo.HomeInfo_AvgPrice,
                 category = homeInfo.HomeInfo_PhotoPath,
                 created_at = homeInfo.HomeInfo_CreateTime,
                 home_details = homeInfo.HomeInfo_IntroDuce,
                 contact_Name = homeInfo.HomeInfo_Contact,
                 contact_Phone = homeInfo.HomeInfo_Phone
             };
-
             return info;
         }
         [HttpGet]
@@ -106,6 +105,26 @@ namespace YJAPI.Controllers
                 infos.Add(info);
             }
             return infos;
+        }
+        [HttpGet]
+        public infos HomeInfosZuById(int id)
+        {
+            HomeInfo homeInfo = bll.ShowById(id);
+            infos info = new infos
+            {
+                id = homeInfo.HomeInfo_Id,
+                title = homeInfo.HomeInfo_Xq_Name,
+                district = homeInfo.HomeInfo_PosiTion,
+                payment_method = homeInfo.HomeInfo_Area,
+                wages = homeInfo.HomeInfo_AvgPrice,
+                category = homeInfo.HomeInfo_PhotoPath,
+                created_at = homeInfo.HomeInfo_CreateTime,
+                home_details = homeInfo.HomeInfo_IntroDuce,
+                contact_Name = homeInfo.HomeInfo_Contact,
+                contact_Phone = homeInfo.HomeInfo_Phone
+            };
+
+            return info;
         }
 
 
