@@ -57,7 +57,7 @@ namespace YJAPI.Controllers
                 db.StringSet("HomeInfo", strResult);
                 db.KeyExpire("HomeInfo", DateTime.Now.AddMinutes(2));
             }
-            homes = JsonConvert.DeserializeObject<List<HomeInfo>>(strResult);
+            homes = JsonConvert.DeserializeObject<List<HomeInfo>>(db.StringGet("HomeInfo"));
             return homes;
         }
 
