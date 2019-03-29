@@ -47,7 +47,8 @@ namespace YJAPI.Controllers
         }
         public dynamic GetBystate(int pageindex,int pagesize,int state)
         {
-            var result = bll.Show().Where(a =>a.HomeInfo.HomeInfo_InfoType==state).ToList();
+            var list = bll.Show();
+            var result = list.Where(a =>a.HomeInfo.HomeInfo_InfoType==state).ToList();
             var pagecount = (int)Math.Ceiling(result.Count * 1.0 / pagesize);
             result = result.Skip((pageindex - 1) * pagesize).Take(pagesize).ToList();
             return new { pagecount,data=result};

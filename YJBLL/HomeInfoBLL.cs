@@ -42,5 +42,10 @@ namespace YJBLL
             HomeInfoDAL hdal = dal as HomeInfoDAL;
             return hdal.ShowBySome(pageindex, pagesize);
         }
+        public dynamic GetSome(string str, int pageindex, int pagesize, int state)
+        {
+            var ddal = dal as HomeInfoDAL;
+            return ddal.ShowBySome(str, pageindex, pagesize, state);
+        }
     }
 }

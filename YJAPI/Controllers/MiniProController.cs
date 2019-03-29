@@ -1,4 +1,5 @@
 ﻿using Newtonsoft.Json;
+using StackExchange.Redis;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -14,6 +15,24 @@ namespace YJAPI.Controllers
 {
     public class MiniProController : ApiController
     {
+        private static readonly object Locker = new object();
+        private static ConnectionMultiplexer redisConn;
+        public static ConnectionMultiplexer GetRedisConn()
+        {
+            if (redisConn == null)
+            {
+                lock (Locker)
+                {
+                    if (redisConn == null || !redisConn.IsConnected)
+                    {
+                        redisConn = ConnectionMultiplexer.Connect("127.0.0.1:6379");
+                    }
+                }
+            }
+            return redisConn;
+        }
+
+
         IDataservices<HomeInfo, HomeInfoBLL> bll = HomeInfoBLL.GetInstance();
         IDataservices<Users, UsersBLL> userbll = UsersBLL.GetInstance();
         IDataservices<Attention, AttentionBLL> attBll = AttentionBLL.GetInstance();
@@ -24,7 +43,18 @@ namespace YJAPI.Controllers
         [HttpGet]
         public List<infos> HomeInfos()
         {
-            List<HomeInfo> homeInfos = bll.Show();
+            redisConn = GetRedisConn();
+            var db = redisConn.GetDatabase(0);
+            List<HomeInfo> homes = bll.Show();
+            string strResult = JsonConvert.SerializeObject(homes);
+            if (!db.KeyExists("HomeInfo"))
+            {
+                db.StringSet("HomeInfo", strResult);
+                db.KeyExpire("HomeInfo", DateTime.Now.AddMinutes(2));
+            }
+            homes = JsonConvert.DeserializeObject<List<HomeInfo>>(db.StringGet("HomeInfo"));
+
+            List<HomeInfo> homeInfos = homes;
             homeInfos = homeInfos.Where(c => c.HomeInfo_InfoType == 1).ToList();
             List<infos> infos = new List<infos>();
             foreach (var item in homeInfos)
@@ -235,7 +265,6 @@ namespace YJAPI.Controllers
         public List<infos> ShowHomeIds(int userId)
         {
             List<Attention> attentions = attBll.Show().Where(c => c.Attention_Uid == userId).ToList();
-
             List<HomeInfo> homeInfos = bll.Show();
             homeInfos = homeInfos.Where(c => c.HomeInfo_InfoType == 2).ToList();
             List<infos> infos = new List<infos>();
@@ -249,86 +278,87 @@ namespace YJAPI.Controllers
                     payment_method = item.HomeInfo_Area,
                     wages = item.HomeInfo_Price,
                     category = item.HomeInfo_PhotoPath,
-                    state = attentions.Select(c => c.Attention_Infoids == item.HomeInfo_Id).Count()>0? 1 : 0
-                    
+                    state = attentions.Select(c => c.Attention_Infoids == item.HomeInfo_Id).Count() > 0 ? 1 : 0
+
                 };
                 infos.Add(info);
             }
             return infos;
         }
 
-    public class collects
-    {
-        public int id { get; set; }
-        public int hid { get; set; }
-        /// <summary>
-        /// 名称
-        /// </summary>
-        public string title { get; set; }
-        /// <summary>
-        /// 位置
-        /// </summary>
-        public string district { get; set; }
-        /// <summary>
-        /// 面积
-        /// </summary>
-        public string payment_method { get; set; }
+        public class collects
+        {
+            public int id { get; set; }
+            public int hid { get; set; }
+            /// <summary>
+            /// 名称
+            /// </summary>
+            public string title { get; set; }
+            /// <summary>
+            /// 位置
+            /// </summary>
+            public string district { get; set; }
+            /// <summary>
+            /// 面积
+            /// </summary>
+            public string payment_method { get; set; }
 
-        /// <summary>
-        /// 价格
-        /// </summary>
-        public double wages { get; set; }
+            /// <summary>
+            /// 价格
+            /// </summary>
+            public double wages { get; set; }
 
-        /// <summary>
-        /// 房源图片
-        /// </summary>
-        public string category { get; set; }
-    }
+            /// <summary>
+            /// 房源图片
+            /// </summary>
+            public string category { get; set; }
+        }
 
-    public class infos
-    {
-        /// <summary>
-        /// 编号
-        /// </summary>
-        public int id { get; set; }
+        public class infos
+        {
+            /// <summary>
+            /// 编号
+            /// </summary>
+            public int id { get; set; }
 
-        /// <summary>
-        /// 名称
-        /// </summary>
-        public string title { get; set; }
-        /// <summary>
-        /// 位置
-        /// </summary>
-        public string district { get; set; }
-        /// <summary>
-        /// 面积
-        /// </summary>
-        public string payment_method { get; set; }
+            /// <summary>
+            /// 名称
+            /// </summary>
+            public string title { get; set; }
+            /// <summary>
+            /// 位置
+            /// </summary>
+            public string district { get; set; }
+            /// <summary>
+            /// 面积
+            /// </summary>
+            public string payment_method { get; set; }
 
-        /// <summary>
-        /// 价格
-        /// </summary>
-        public double wages { get; set; }
+            /// <summary>
+            /// 价格
+            /// </summary>
+            public double wages { get; set; }
 
-        /// <summary>
-        /// 房源图片
-        /// </summary>
-        public string category { get; set; }
+            /// <summary>
+            /// 房源图片
+            /// </summary>
+            public string category { get; set; }
 
-        /// <summary>
-        /// 发布时间
-        /// </summary>
-        public string created_at { get; set; }
+            /// <summary>
+            /// 发布时间
+            /// </summary>
+            public string created_at { get; set; }
 
-        /// <summary>
-        /// 房源介绍
-        /// </summary>
-        public string home_details { get; set; }
+            /// <summary>
+            /// 房源介绍
+            /// </summary>
+            public string home_details { get; set; }
 
-        public string contact_Name { get; set; }
+            public string contact_Name { get; set; }
 
-        public string contact_Phone { get; set; }
+            public string contact_Phone { get; set; }
 
-        public int state { get; set; }
+            public int state { get; set; }
+        }
     }
 }

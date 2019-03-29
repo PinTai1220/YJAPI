@@ -82,5 +82,14 @@ namespace YJAPI.Controllers
         {
             return bll.Show().Where(s => s.HomeInfo_UserId == uid).ToList();
         }
+        public dynamic GetBystate(string str, int pageindex, int pagesize, int state)
+        {
+            var bbll = bll as HomeInfoBLL;
+            var data = bbll.GetSome(str, pageindex, pagesize, state);
+            var jsonSetting = new JsonSerializerSettings { NullValueHandling = NullValueHandling.Ignore };
+            var json = JsonConvert.SerializeObject(data, Formatting.Indented, jsonSetting);
+            //var jj = Convert.ToString(json).Replace();
+            return JsonConvert.DeserializeObject<dynamic>(json);
+        }
     }
 }

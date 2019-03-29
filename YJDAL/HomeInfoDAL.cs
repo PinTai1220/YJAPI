@@ -72,5 +72,22 @@ namespace YJDAL
             int pc = Convert.ToInt32(pcount.Value);
             return new { pagecount = pc, data };
         }
+        public dynamic ShowBySome(string str, int pageindex, int pagesize, int state)
+        {
+            SqlParameter pstr = new SqlParameter("str", System.Data.SqlDbType.NVarChar);
+            pstr.Value = str == null ? "" : str;
+            SqlParameter pindex = new SqlParameter("pageindex", System.Data.SqlDbType.Int);
+            pindex.Value = pageindex;
+            SqlParameter psize = new SqlParameter("pagesize", System.Data.SqlDbType.Int);
+            psize.Value = pageindex;
+            SqlParameter pstate = new SqlParameter("state", System.Data.SqlDbType.Int);
+            pstate.Value = state;
+            SqlParameter pcount = new SqlParameter("pagecount", System.Data.SqlDbType.Int);
+            pcount.Direction = System.Data.ParameterDirection.Output;
+            SqlParameter[] parameters = { pstr, pindex, psize, pstate, pcount };
+            var data = DBHelper.GetList_Proc<HomeInfo>("p_homeinfo", parameters);
+            int pc = Convert.ToInt32(pcount.Value);
+            return new { pagecount = pc, data };
+        }
     }
 }
