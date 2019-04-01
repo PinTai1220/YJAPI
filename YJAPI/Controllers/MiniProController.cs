@@ -111,15 +111,15 @@ namespace YJAPI.Controllers
             {
                 new
                 {
-                    image = "http://localhost:17547/Images/b2.jpg"
+                    image = "http://localhost:17547/Images/s7.jpg"
                 },
                 new
                 {
-                    image = "http://localhost:17547/Images/d1.jpg"
+                    image = "http://localhost:17547/Images/p5.jpg"
                 },
                 new
                 {
-                    image = "http://localhost:17547/Images/g1.jpg"
+                    image = "http://localhost:17547/Images/3.jpg"
                 }
             };
             return strs;
